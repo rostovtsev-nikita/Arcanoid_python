@@ -45,16 +45,26 @@ class Platform():
         self.canvas.bind_all('<KeyPress-Right>', self.right)
 
     def left(self, event):
-        self.x = -3
+        # Проверка перед движением влево
+        pos = self.canvas.coords(self.rect)
+        if pos[0] > 0:
+            self.x = -3
 
     def right(self, event):
-        self.x = 3
+        # Проверка перед движением вправо
+        pos = self.canvas.coords(self.rect)
+        if pos[2] < 500:
+            self.x = 3
 
     def draw(self):
         self.canvas.move(self.rect, self.x, 0)
         pos = self.canvas.coords(self.rect)
+        # Останавливаем платформу после движения
         if pos[0] <= 0 or pos[2] >= 500:
             self.x = 0
+
+
+
 
 def start_game():
     global ball, platform, score_text, best_score
